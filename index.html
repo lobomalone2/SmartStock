@@ -1,14 +1,103 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/style.css">
-    <script defer src="script.js"></script>
-    <title>Gerenciador de Estoque e Vendas</title>
-
+    <script defer src="script/script.js"></script>
+    <title>SmartStock</title>
 </head>
 <body>
-    
+
+    <header>
+        <h1><span class="logo-in">IN</span> SmartStock</h1>
+    </header>
+
+    <main>
+        <div class="container">
+            <section id="gerenciar-produtos" class="card">
+                <h2 class="card-title">Gerenciar Produtos</h2>
+
+                <div class="form-group">
+                    <h3>Cadastrar Novo Produto</h3>
+                    <form id="form-cadastrar">
+                        <label for="nome">Nome do Produto:</label>
+                        <input type="text" id="nome" name="nome" placeholder="Ex: Bolo de Chocolate" required>
+
+                        <label for="descricao">Descrição:</label>
+                        <textarea id="descricao" name="descricao" rows="3" placeholder="Ex: Bolo cremoso com cobertura de brigadeiro"></textarea>
+
+                        <label for="quantidade">Quantidade em Estoque:</label>
+                        <input type="number" id="quantidade" name="quantidade" placeholder="Ex: 20" required>
+
+                        <label for="preco">Preço (R$):</label>
+                        <input type="number" id="preco" name="preco" step="0.01" placeholder="Ex: 15.50" required>
+
+                        <button type="submit" class="button-primary">Cadastrar Produto</button>
+                    </form>
+                </div>
+
+                <div class="form-group">
+                    <h3>Consultar Produto por ID</h3>
+                    <form id="form-consultar">
+                        <label for="consulta-id">ID do Produto:</label>
+                        <input type="number" id="consulta-id" name="consulta-id" placeholder="Ex: 1" required>
+                        <button type="submit" class="button-primary">Consultar</button>
+                    </form>
+                    <div id="resultado-consulta" class="result-box">
+                        <p><strong>Nome:</strong> <span id="res-nome"></span></p>
+                        <p><strong>Descrição:</strong> <span id="res-descricao"></span></p>
+                        <p><strong>Quantidade:</strong> <span id="res-quantidade"></span></p>
+                        <p><strong>Preço:</strong> R$ <span id="res-preco"></span></p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h3>Atualizar Estoque</h3>
+                    <form id="form-atualizar">
+                        <label for="update-id">ID do Produto:</label>
+                        <input type="number" id="update-id" name="update-id" placeholder="Ex: 1" required>
+
+                        <label for="nova-quantidade">Nova Quantidade:</label>
+                        <input type="number" id="nova-quantidade" name="nova-quantidade" placeholder="Ex: 50" required>
+
+                        <button type="submit" class="button-primary">Atualizar Estoque</button>
+                    </form>
+                </div>
+
+                 <div class="form-group">
+                    <h3>Remover Produto</h3>
+                    <form id="form-deletar">
+                        <label for="delete-id">ID do Produto:</label>
+                        <input type="number" id="delete-id" name="delete-id" placeholder="Ex: 3" required>
+                        <button type="submit" class="button-delete">Remover Produto</button>
+                    </form>
+                </div>
+            </section>
+
+            <section id="gerenciar-vendas" class="card">
+                <h2 class="card-title">Registrar Venda</h2>
+                <div class="form-group">
+                     <form id="form-venda">
+                        <label for="venda-produto-id">ID do Produto Vendido:</label>
+                        <input type="number" id="venda-produto-id" name="venda-produto-id" placeholder="Ex: 1" required>
+
+                        <label for="venda-quantidade">Quantidade Vendida:</label>
+                        <input type="number" id="venda-quantidade" name="venda-quantidade" placeholder="Ex: 5" required>
+
+                        <label for="data-venda">Data da Venda:</label>
+                        <input type="date" id="data-venda" name="data-venda" required>
+
+                        <button type="submit" class="button-primary">Registrar Venda</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>Projeto de Gerenciamento de Estoque &copy; 2024</p>
+    </footer>
+
 </body>
 </html>

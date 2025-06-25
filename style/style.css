@@ -1,0 +1,206 @@
+/*
+ * Estilo Premium para Sistema de Gerenciamento de Estoque
+ * Inspirado na identidade visual do PDF 'Aula 18 PROJETO II.pdf' 
+ */
+
+:root {
+    --cor-fundo: #121212;
+    --cor-card: #1e1e1e;
+    --cor-borda: #3a3a3a;
+    --cor-texto-principal: #f0f0f0;
+    --cor-texto-secundario: #b3b3b3;
+    --cor-primaria: #e53935; /* Vermelho vibrante do logo 'IN'  */
+    --cor-primaria-hover: #c62828;
+    --cor-delete: #d32f2f;
+    --cor-delete-hover: #b71c1c;
+    --sombra-card: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.23);
+    --sombra-input-focus: 0 0 0 3px rgba(229, 57, 53, 0.4);
+    --borda-arredondada: 8px;
+    --transicao-padrao: all 0.3s ease-in-out;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto-principal);
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+header {
+    background: #1c1c1c;
+    padding: 1.5rem;
+    text-align: center;
+    border-bottom: 2px solid var(--cor-primaria);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+header h1 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.logo-in {
+    font-weight: 900;
+    color: var(--cor-primaria);
+}
+
+main {
+    padding: 3rem 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 1300px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 2.5rem;
+}
+
+.card {
+    background: linear-gradient(145deg, #212121, #1b1b1b);
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--borda-arredondada);
+    padding: 2.5rem;
+    box-shadow: var(--sombra-card);
+    transition: var(--transicao-padrao);
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    border-color: var(--cor-primaria);
+}
+
+.card-title {
+    color: var(--cor-primaria);
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--cor-borda);
+    padding-bottom: 1rem;
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+.form-group {
+    margin-bottom: 2.5rem;
+}
+
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+.form-group h3 {
+    font-size: 1.3rem;
+    color: var(--cor-texto-principal);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+label {
+    font-weight: 500;
+    color: var(--cor-texto-secundario);
+    margin-bottom: 0.5rem;
+    display: block;
+    font-size: 0.9rem;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+textarea {
+    width: 100%;
+    padding: 1rem;
+    background-color: #2c2c2c;
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--borda-arredondada);
+    color: var(--cor-texto-principal);
+    font-size: 1rem;
+    transition: var(--transicao-padrao);
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--cor-primaria);
+    box-shadow: var(--sombra-input-focus);
+    background-color: #333;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.button-primary, .button-delete {
+    width: 100%;
+    padding: 1rem;
+    color: white;
+    border: none;
+    border-radius: var(--borda-arredondada);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transicao-padrao);
+    margin-top: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.button-primary {
+    background-color: var(--cor-primaria);
+}
+
+.button-primary:hover {
+    background-color: var(--cor-primaria-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(229, 57, 53, 0.3);
+}
+
+.button-delete {
+    background-color: var(--cor-delete);
+}
+
+.button-delete:hover {
+    background-color: var(--cor-delete-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(211, 47, 47, 0.3);
+}
+
+.result-box {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: var(--borda-arredondada);
+    border-left: 4px solid var(--cor-primaria);
+    min-height: 100px;
+}
+
+.result-box p {
+    margin-bottom: 0.8rem;
+    color: var(--cor-texto-secundario);
+}
+
+.result-box p:last-child {
+    margin-bottom: 0;
+}
+
+.result-box strong {
+    color: var(--cor-texto-principal);
+    font-weight: 600;
+}
+
+footer {
+    text-align: center;
+    padding: 2.5rem;
+    margin-top: 2rem;
+    color: var(--cor-texto-secundario);
+    font-size: 0.9rem;
+    border-top: 1px solid var(--cor-borda);
+}
