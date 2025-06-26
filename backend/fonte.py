@@ -2,6 +2,7 @@ import sqlite3
 
 
 
+
 class DatabaseManager(): # Classe exclusiva para estabelecer a conexão com o banco de dados e salvar alterações! # Funcionando
 
     def __init__(self,db_nome='pythondb.db'):
@@ -9,23 +10,25 @@ class DatabaseManager(): # Classe exclusiva para estabelecer a conexão com o ba
         self.db_nome = db_nome
         self.conn = None
         self.cursor = None
+
     
-    def conectar(self):
+    def  conectar(self):
+        
 
         try: # Tratamento de erro caso algo de errado aconteça durante a conexão 
 
             self.conn = sqlite3.connect(self.db_nome)
             self.cursor = self.conn.cursor()
 
-            print(f'Conectando ao banco de dados: {self.db_nome}')
+            mensagem = f'Conectando ao banco de dados: {self.db_nome}'
 
-            return  True
+            return  mensagem
 
         except sqlite3.Error as e:
 
-            print(f'Erro ao conectar no banco de dados: {e}')
+            mensagem = f'Erro ao conectar no banco de dados: {e}'
 
-            return False
+            return mensagem
     
     def commit(self): # Salva as alterações realizadas no DB
 
@@ -33,11 +36,15 @@ class DatabaseManager(): # Classe exclusiva para estabelecer a conexão com o ba
 
             self.conn.commit()
 
-            print("Transação confirmada.") 
+            mensagem = "Transação confirmada."
+
+            return mensagem
 
         else:
 
-            print("Erro: Conexão não estabelecida para commit.") 
+            mensagem = "Erro: Conexão não estabelecida para commit."
+
+            return mensagem
 
 
 
@@ -54,9 +61,9 @@ class Tabelas(): #Funcionando, função para criar as tabelas do DB
             
         if not self.db_connect.conn:
 
-            print(f'Erro: conexão com o banco de dados não estabelecida no DatabaseManager')
+            mensagem = 'Erro: conexão com o banco de dados não estabelecida no DatabaseManager'
 
-            return False
+            return mensagem
 
         try: 
 
@@ -72,13 +79,15 @@ class Tabelas(): #Funcionando, função para criar as tabelas do DB
             ''')
 
             self.db_connect.commit()
-            print("Tabela 'produtos' criada com sucesso ou já existente.")
+            mensagem = "Tabela 'produtos' criada com sucesso ou já existente."
 
-            return True
+            return mensagem
 
         except sqlite3.Error as e:
 
-            print(f"Erro ao criar tabela 'produtos': {e}")
+            mensagem = f"Erro ao criar tabela 'produtos': {e}"
+
+            return mensagem
 
             
     def vendas(self):
@@ -97,9 +106,11 @@ class Tabelas(): #Funcionando, função para criar as tabelas do DB
 
         except sqlite3.Error as e:
 
-            print('Erro ao criar tabela vendas!')
+            mensagem = 'Erro ao criar tabela vendas!'
 
             self.db_connect.rollback()
+
+            return mensagem
 
         
 
@@ -109,14 +120,14 @@ class Produto(): # Funcionando, contém funções para cadastro de produtos no D
     def __init__(self,db_connect):
 
         self.db_connect = db_connect
-    
-    def cadastrar_produto(self,nome,descricao,quantidade,preco): #UPDATE
 
+    def cadastrar_produto(self,nome,descricao,quantidade,preco): #UPDATE
+            
             if not self.db_connect.conn:
 
-                print("Erro: Conexão com o banco de dados não estabelecida no DatabaseManager.")
+                mensagem = "Erro: Conexão com o banco de dados não estabelecida no DatabaseManager."
 
-                return
+                return mensagem
             
             try:
 
@@ -124,24 +135,26 @@ class Produto(): # Funcionando, contém funções para cadastro de produtos no D
 
                 self.db_connect.commit()
 
-                print(f"Produto '{nome}' inserido com sucesso.")
+                mensagem = f"Produto '{nome}' inserido com sucesso."
+
+                return mensagem
 
             except sqlite3.Error as e:
 
-                print(f"Erro ao inserir produto '{nome}': {e}")
+                mensagem = f"Erro ao inserir produto '{nome}': {e}"
 
                 self.db_connect.rollback() # Desfaz as alterações feitas durante a compilação
 
-                return False
+                return mensagem
 
 
     def atualizar_quantidade(self,id,quantidade):
             
             if not self.db_connect.conn:
 
-                print("Erro: Conexão com o banco de dados não estabelecida no DatabaseManager.")
-
-                return
+                mensagem = "Erro: Conexão com o banco de dados não estabelecida no DatabaseManager."
+                
+                return mensagem
             
             try:
 
@@ -149,20 +162,25 @@ class Produto(): # Funcionando, contém funções para cadastro de produtos no D
 
                 self.db_connect.commit()
 
-                print(f"quantidade do produto do id: '{id}' atualizado com sucesso.")
+                mensagem = f"quantidade do produto do id: '{id}' atualizado com sucesso."
 
             except sqlite3.Error as e:
 
-                print(f"Erro ao inserir produto '{id}': {e}")
+                mensagem = f"Erro ao inserir produto '{id}': {e}"
 
                 self.db_connect.rollback() # Desfaz as alterações feitas durante a compilação
+
+                return mensagem
+
+
 
 
     def consultar_produto(self,id): #Parei aqui
 
         if not self.db_connect.conn:
-            print("Não tem conexão")
-            return None
+            mensagem = "Não tem conexão"
+
+            return mensagem
         
         try:
             self.db_connect.cursor.execute(''' SELECT id, nome, descricao, quantidade, preco FROM produtos WHERE id = ? ''',(id,))
@@ -170,18 +188,22 @@ class Produto(): # Funcionando, contém funções para cadastro de produtos no D
             produto = self.db_connect.cursor.fetchone()
 
             if produto:
-                print(f'Produto encontrado {produto}')
-                return produto
+
+                mensagem = f'Produto encontrado {produto}'
+
+                return mensagem,produto
             
             else:
-                print(f'Nenhum produto encontrado com o ID {id}')
-                return None
+
+                mensagem = f'Nenhum produto encontrado com o ID {id}'
+
+                return mensagem
             
         except sqlite3.Error as e:
 
-            print(f'Erro ao consultar produto "{id}:{e}"')
+            mensagem = f'Erro ao consultar produto "{id}:{e}"'
 
-            return None
+            return mensagem
 
             
 
@@ -194,12 +216,14 @@ class Produto(): # Funcionando, contém funções para cadastro de produtos no D
 
             self.db_connect.cursor.execute(''' DELETE FROM produtos WHERE id = ? ''',(id,))
             self.db_connect.conn.commit()
-            print(f'produto {produto} deletado')
+            mensagem = f'produto {produto} deletado'
 
-            return
+            return mensagem
         
         else:
-            print('Produto não encontrado! ')
+            mensagem = 'Produto não encontrado! '
+
+            return mensagem
 
 
             
